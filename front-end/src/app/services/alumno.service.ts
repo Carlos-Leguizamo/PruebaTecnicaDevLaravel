@@ -11,7 +11,7 @@ export class AlumnoService {
   constructor(private http: HttpClient) {}
 
   crearAlumno(alumno: any, apiKey: string): Observable<any> {
-    const headers = new HttpHeaders().set('X-API-KEY', apiKey); 
+    const headers = new HttpHeaders().set('X-API-KEY', apiKey);
     return this.http.post(`${this.apiUrl}/crear-alumno`, alumno, { headers });
   }
 
