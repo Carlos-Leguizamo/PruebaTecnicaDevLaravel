@@ -14,7 +14,7 @@ class AlumnoController extends Controller
             'fecha_nacimiento' => 'required|date',
             'nombre_padre' => 'required|string|max:255',
             'nombre_madre' => 'required|string|max:255',
-            'grado' => 'required|string|max:255',
+            'grado' => 'required|integer|max:255',
             'seccion' => 'required|string|max:255',
             'fecha_ingreso' => 'required|date'
         ]);
