@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\Validator;
 use App\Models\Alumno;
-
 use Illuminate\Http\Request;
 
 class AlumnoController extends Controller
@@ -20,16 +20,39 @@ class AlumnoController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], 400);
+            return response()->json([
+                'message' => 'Error de validación',
+                'errors' => $validator->errors()
+            ], 400);
         }
 
-        $alumno = Alumno::create($request->all());
-        return response()->json(['message' => 'Alumno creado exitosamente', 'alumno' => $alumno], 201);
+        try {
+            $alumno = Alumno::create($request->all());
+
+            return response()->json([
+                'message' => 'Alumno creado exitosamente',
+                'alumno' => $alumno
+            ], 201);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Error al crear el alumno',
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
 
-    // Método para consultar alumnos por grado
     public function showByGrado($grado) {
         $alumnos = Alumno::where('grado', $grado)->get();
-        return response()->json(['alumnos' => $alumnos], 200);
+
+        if ($alumnos->isEmpty()) {
+            return response()->json([
+                'message' => "No se encontraron alumnos en el grado {$grado}"
+            ], 404);
+        }
+
+        return response()->json([
+            'message' => "Lista de alumnos en el grado {$grado}",
+            'alumnos' => $alumnos
+        ], 200);
     }
 }

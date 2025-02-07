@@ -8,16 +8,14 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ApiKeyMiddleware
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
-     */
-    public function handle(Request $request, Closure $next): Response {
+    public function handle(Request $request, Closure $next): Response
+    {
         $apiKey = $request->header('X-API-KEY');
 
-        if ($apiKey !== env('API_KEY')) {
-            return response()->json(['error' => 'Acceso no autorizado'], 401);
+        $validApiKey = env('API_KEY');
+
+        if ($apiKey !== $validApiKey) {
+            return response()->json(['error' => 'Unauthorized'], 401);
         }
 
         return $next($request);

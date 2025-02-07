@@ -11,7 +11,8 @@ Route::get('/user', function (Request $request) {
 
 
 
-// Route::middleware('api_key')->group(function () {
+Route::middleware(['api_key'])->group(function () {
     Route::post('/crear-alumno', [AlumnoController::class, 'store']);
     Route::get('/consultar-alumno/{grado}', [AlumnoController::class, 'showByGrado']);
-// });
+});
+
