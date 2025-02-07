@@ -1,0 +1,149 @@
+<div class="container mt-4">
+  <h2>Gestión de Alumnos</h2>
+
+  <div class="mb-3">
+    <label>🔑 API Key</label>
+    <input
+      type="password"
+      class="form-control"
+      [(ngModel)]="apiKey"
+      placeholder="Ingrese su API Key"
+    />
+  </div>
+
+  <div class="card p-4 mt-3">
+    <h4>Registrar Alumno</h4>
+    <form (ngSubmit)="agregarAlumno()" #alumnoForm="ngForm">
+      <div class="mb-3">
+        <label>Nombre del Alumno</label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="alumno.nombre"
+          name="nombre"
+          required
+        />
+      </div>
+
+      <div class="mb-3">
+        <label>Fecha de Nacimiento</label>
+        <input
+          type="date"
+          class="form-control"
+          [(ngModel)]="alumno.fecha_nacimiento"
+          name="fecha_nacimiento"
+          required
+        />
+      </div>
+
+      <div class="mb-3">
+        <label>Nombre del Padre</label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="alumno.nombre_padre"
+          name="nombre_padre"
+          required
+        />
+      </div>
+
+      <div class="mb-3">
+        <label>Nombre de la Madre</label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="alumno.nombre_madre"
+          name="nombre_madre"
+          required
+        />
+      </div>
+
+      <div class="mb-3">
+        <label>Grado</label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="alumno.grado"
+          name="grado"
+          required
+        />
+      </div>
+
+      <div class="mb-3">
+        <label>Sección</label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="alumno.seccion"
+          name="seccion"
+          required
+        />
+      </div>
+
+      <div class="mb-3">
+        <label>Fecha de Ingreso</label>
+        <input
+          type="date"
+          class="form-control"
+          [(ngModel)]="alumno.fecha_ingreso"
+          name="fecha_ingreso"
+          required
+        />
+      </div>
+
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="!alumnoForm.valid"
+      >
+        Registrar Alumno
+      </button>
+    </form>
+  </div>
+
+  <hr />
+
+  <div class="card p-4 mt-3">
+    <h4>Consultar Alumnos</h4>
+
+    <div class="mb-3">
+      <label>Grado a Consultar</label>
+      <input
+        type="number"
+        class="form-control"
+        [(ngModel)]="idGrado"
+        placeholder="Ingrese ID del Grado"
+      />
+    </div>
+
+    <button (click)="consultarAlumnos()" class="btn btn-success">
+      Consultar
+    </button>
+
+    <div *ngIf="alumnos.length > 0" class="mt-3">
+      <h5>Alumnos Encontrados</h5>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Fecha Nacimiento</th>
+            <th>Padre</th>
+            <th>Madre</th>
+            <th>Grado</th>
+            <th>Sección</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let alumno of alumnos">
+            <td>{{ alumno.nombre }}</td>
+            <td>{{ alumno.fecha_nacimiento }}</td>
+            <td>{{ alumno.nombre_padre }}</td>
+            <td>{{ alumno.nombre_madre }}</td>
+            <td>{{ alumno.grado }}</td>
+            <td>{{ alumno.seccion }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
