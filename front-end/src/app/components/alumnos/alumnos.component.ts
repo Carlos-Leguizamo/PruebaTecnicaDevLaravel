@@ -69,18 +69,22 @@ export class AlumnosComponent {
 
     this.alumnoService.consultarAlumno(this.idGrado, this.apiKey).subscribe(
       (data) => {
-        this.alumnos = data;
+        if (data && data.alumnos) {
+          this.alumnos = data.alumnos;  // Extraemos correctamente los alumnos
 
-        if (data.length === 0) {
-          this.mostrarError(`No se encontraron alumnos en el grado ${this.idGrado}`);
+          if (this.alumnos.length === 0) {
+            this.mostrarError(`No se encontraron alumnos en el grado ${this.idGrado}`);
+          } else {
+            Swal.fire({
+              icon: 'info',
+              title: 'Consulta exitosa',
+              text: `Se encontraron ${this.alumnos.length} alumnos en el grado ${this.idGrado}`,
+              timer: 2000,
+              showConfirmButton: false
+            });
+          }
         } else {
-          Swal.fire({
-            icon: 'info',
-            title: 'Consulta exitosa',
-            text: `Se encontraron ${data.length} alumnos`,
-            timer: 2000,
-            showConfirmButton: false
-          });
+          this.mostrarError(`No se encontraron alumnos en el grado ${this.idGrado}`);
         }
       },
       (error) => {

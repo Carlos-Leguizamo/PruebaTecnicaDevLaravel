@@ -1,8 +1,8 @@
-<div class="container mt-4">
-  <h2>Gestión de Alumnos</h2>
+<div class="container mt-4 pb-5">
+  <h2 class="text-center"><i class="fas fa-user-graduate"></i> Gestión de Alumnos</h2>
 
   <div class="mb-3">
-    <label>🔑 API Key</label>
+    <label class="fw-bold"><i class="fas fa-key"></i> API Key</label>
     <input
       type="password"
       class="form-control"
@@ -11,11 +11,11 @@
     />
   </div>
 
-  <div class="card p-4 mt-3">
+  <div class="card shadow p-4 mt-3">
     <h4>Registrar Alumno</h4>
     <form (ngSubmit)="agregarAlumno()" #alumnoForm="ngForm">
       <div class="mb-3">
-        <label>Nombre del Alumno</label>
+        <label class="fw-bold"><i class="fas fa-user"></i> Nombre del Alumno</label>
         <input
           type="text"
           class="form-control"
@@ -25,19 +25,31 @@
         />
       </div>
 
-      <div class="mb-3">
-        <label>Fecha de Nacimiento</label>
-        <input
-          type="date"
-          class="form-control"
-          [(ngModel)]="alumno.fecha_nacimiento"
-          name="fecha_nacimiento"
-          required
-        />
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="fw-bold"><i class="fas fa-calendar-alt"></i> Fecha de Nacimiento</label>
+          <input
+            type="date"
+            class="form-control"
+            [(ngModel)]="alumno.fecha_nacimiento"
+            name="fecha_nacimiento"
+            required
+          />
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="fw-bold"><i class="fas fa-calendar-check"></i> Fecha de Ingreso</label>
+          <input
+            type="date"
+            class="form-control"
+            [(ngModel)]="alumno.fecha_ingreso"
+            name="fecha_ingreso"
+            required
+          />
+        </div>
       </div>
 
       <div class="mb-3">
-        <label>Nombre del Padre</label>
+        <label class="fw-bold"><i class="fas fa-male"></i> Nombre del Padre</label>
         <input
           type="text"
           class="form-control"
@@ -48,7 +60,7 @@
       </div>
 
       <div class="mb-3">
-        <label>Nombre de la Madre</label>
+        <label class="fw-bold"><i class="fas fa-female"></i> Nombre de la Madre</label>
         <input
           type="text"
           class="form-control"
@@ -58,79 +70,71 @@
         />
       </div>
 
-      <div class="mb-3">
-        <label>Grado</label>
-        <input
-          type="text"
-          class="form-control"
-          [(ngModel)]="alumno.grado"
-          name="grado"
-          required
-        />
-      </div>
-
-      <div class="mb-3">
-        <label>Sección</label>
-        <input
-          type="text"
-          class="form-control"
-          [(ngModel)]="alumno.seccion"
-          name="seccion"
-          required
-        />
-      </div>
-
-      <div class="mb-3">
-        <label>Fecha de Ingreso</label>
-        <input
-          type="date"
-          class="form-control"
-          [(ngModel)]="alumno.fecha_ingreso"
-          name="fecha_ingreso"
-          required
-        />
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="fw-bold"><i class="fas fa-graduation-cap"></i> Grado</label>
+          <input
+            type="number"
+            class="form-control"
+            [(ngModel)]="alumno.grado"
+            name="grado"
+            required
+            min="1"
+          />
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="fw-bold"><i class="fas fa-layer-group"></i> Sección</label>
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="alumno.seccion"
+            name="seccion"
+            required
+          />
+        </div>
       </div>
 
       <button
         type="submit"
-        class="btn btn-primary"
+        class="btn btn-primary w-100"
         [disabled]="!alumnoForm.valid"
       >
-        Registrar Alumno
+        <i class="fas fa-save"></i> Registrar Alumno
       </button>
     </form>
   </div>
 
   <hr />
 
-  <div class="card p-4 mt-3">
+  <div class="card shadow p-4 mt-3">
     <h4>Consultar Alumnos</h4>
 
     <div class="mb-3">
-      <label>Grado a Consultar</label>
+      <label class="fw-bold"><i class="fas fa-chalkboard-teacher"></i> Grado a Consultar</label>
       <input
         type="number"
         class="form-control"
         [(ngModel)]="idGrado"
-        placeholder="Ingrese ID del Grado"
+        placeholder="Ingrese el grado a consultar"
+        min="1"
       />
     </div>
 
-    <button (click)="consultarAlumnos()" class="btn btn-success">
-      Consultar
+    <button (click)="consultarAlumnos()" class="btn btn-success w-100">
+      <i class="fas fa-search"></i> Consultar
     </button>
 
     <div *ngIf="alumnos.length > 0" class="mt-3">
-      <h5>Alumnos Encontrados</h5>
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Fecha Nacimiento</th>
-            <th>Padre</th>
-            <th>Madre</th>
-            <th>Grado</th>
-            <th>Sección</th>
+      <h5 class="text-center"><i class="fas fa-list"></i> Alumnos Encontrados</h5>
+      <table class="table table-bordered table-hover">
+        <thead class="table-primary">
+          <tr class="text-center">
+            <th><i class="fas fa-user"></i> Nombre</th>
+            <th><i class="fas fa-calendar-alt"></i> Fecha Nacimiento</th>
+            <th><i class="fas fa-male"></i> Padre</th>
+            <th><i class="fas fa-female"></i> Madre</th>
+            <th><i class="fas fa-graduation-cap"></i> Grado</th>
+            <th><i class="fas fa-layer-group"></i> Sección</th>
           </tr>
         </thead>
         <tbody>
@@ -147,3 +151,11 @@
     </div>
   </div>
 </div>
+<footer class="text-center mt-5 py-3 bg-light">
+  <p class="mb-0">
+    Desarrollado por <strong>Carlos Leguizamo</strong> &copy; 2025
+    <a href="https://github.com/Carlos-Leguizamo" target="_blank" class="ms-2">
+      <i class="fab fa-github fa-lg"></i>
+    </a>
+  </p>
+</footer>
